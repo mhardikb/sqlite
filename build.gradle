@@ -24,18 +24,47 @@ public class database extends SQLiteOpenHelper {
 
     }
 
+public boolean select(String email, String password) {
 
-    public Cursor select() {
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery("select * from db where email = '"+email+"' and password = '"+password+"'",null);
+      if (cursor.getCount()>0){
+
+              return true;
+      }
+      else {
+             return  false; }
+    }
+
+    public Cursor getdata() {
 
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery("select * from db",null);
         return cursor;
 
-
-
     }
 
     public void delete(String s) {
+
+        SQLiteDatabase database =this.getWritableDatabase();
+        String s1 = "delete from db where id = '"+s+"'";
+        database.execSQL(s1);
+    }
+
+    public void updatedata(String ss, String ss1, String ss2, String ss3, String ss4) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        String update = "update db set name='"+ss1+"',email='"+ss2+"',password='"+ss3+"',city='"+ss4+"' where id='"+ss+"'";
+        database.execSQL(update);
+
+
+
+    }
+    
+    
+    
+delete and updta in database class
+
+  public void delete(String s) {
 
         SQLiteDatabase database =this.getWritableDatabase();
         String s1 = "delete from db where id = '"+s+"'";
@@ -141,25 +170,35 @@ dbhelper dbhelper = new dbhelper(this);
 }
 
 
-        s1 = getIntent().getStringExtra("id");
-        s2 = getIntent().getStringExtra("name");
-        s3 = getIntent().getStringExtra("email");
-        s4 = getIntent().getStringExtra("password");
-        s5 = getIntent().getStringExtra("city");
+         view data
+      EditText e1,e2,e3,e4;
+TextView t;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main3);
+        e1 = findViewById(R.id.getname);
+        e2 = findViewById(R.id.getemail);
+        e3 = findViewById(R.id.getpw);
+        e4 = findViewById(R.id.getcity);
+        t = findViewById(R.id.t);
 
-        e1  = findViewById(R.id.e1);
-        e2  = findViewById(R.id.e2);
-        e3  = findViewById(R.id.e3);
-        e4  = findViewById(R.id.e4);
-        e5  = findViewById(R.id.e5);
-        b = findViewById(R.id.b);
 
-        e1.setText(s1);
-        e2.setText(s2);
-        e3.setText(s3);
-        e4.setText(s4);
-        e5.setText(s5);
 
+        String s1 = getIntent().getStringExtra("id");
+        String s2 = getIntent().getStringExtra("name");
+        String s3 = getIntent().getStringExtra("email");
+        String s4 = getIntent().getStringExtra("pw");
+        String s5 = getIntent().getStringExtra("city");
+
+        t.setText(s1);
+        e1.setText(s2);
+        e2.setText(s3);
+        e3.setText(s4);
+        e4.setText(s5);
+
+
+now for update
 
         database database = new database(this);
 
@@ -183,20 +222,3 @@ dbhelper dbhelper = new dbhelper(this);
 
 
 
-delete and updta in database class
-
-  public void delete(String s) {
-
-        SQLiteDatabase database =this.getWritableDatabase();
-        String s1 = "delete from db where id = '"+s+"'";
-        database.execSQL(s1);
-    }
-
-    public void updatedata(String ss, String ss1, String ss2, String ss3, String ss4) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        String update = "update db set name='"+ss1+"',email='"+ss2+"',password='"+ss3+"',city='"+ss4+"' where id='"+ss+"'";
-        database.execSQL(update);
-
-
-
-    }
