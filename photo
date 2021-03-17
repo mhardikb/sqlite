@@ -1,0 +1,47 @@
+save in amage view 
+
+
+                    // loading profile image from local cache
+            //        loadProfile(uri.toString());
+                    Intent intent = new Intent(MainActivity.this,nextactivity.class);
+                    intent.putExtra("image",uri.toString());
+                    startActivity(intent);
+ 
+ in next activity 
+               
+        String uri = getIntent().getStringExtra("image");
+        image.setImageURI(Uri.parse(uri));
+
+ 
+ 
+ for dowenload ---
+  
+                drawable = (BitmapDrawable)image.getDrawable();
+                bitmap = drawable.getBitmap();
+                FileOutputStream outputStream = null;
+                File sdcard = Environment.getExternalStorageDirectory();
+                File directory = new File(sdcard.getAbsolutePath() + "/Yourname");
+                directory.mkdir();
+
+                String filename = String.format("%d.jpg",System.currentTimeMillis());
+                File outfile = new File(directory,filename);
+
+                try {
+                    outputStream = new FileOutputStream(outfile);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+
+                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    intent.setData(Uri.fromFile(outfile));
+                    sendBroadcast(intent);
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
