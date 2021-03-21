@@ -1,3 +1,29 @@
+ manifest add
+
+ 	<provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path">
+            </meta-data>
+        </provider> 
+
+# xml file..
+	
+	<?xml version="1.0" encoding="utf-8"?>
+	<paths xmlns:android="http://schemas.android.com/apk/res/android">
+
+    		<external-path
+        		name="external_files"
+        		path=".">
+    	</external-path>
+	</paths>
+
+
+
 save in amage view 
 
 
@@ -73,4 +99,30 @@ save in amage view
                     e.printStackTrace();
                 }
 
+
+for filters -----
+first---
+allprojects 
+{
+  repositories 
+  {
+    maven { url 'https://jitpack.io' } //add this line
+  }
+}
+
+second---
+
+  implementation 'com.github.hgayan7:FilterLibrary:0.1.0'
+  
+  
+  last java ----
+  
+  
+     PhotoFilter photoFilter;
+                 drawable = (BitmapDrawable) image.getDrawable();
+                 bitmap = drawable.getBitmap();
+                photoFilter = new PhotoFilter();
+// using filter 'one'
+                image.setImageBitmap(photoFilter.one(getApplicationContext(),bitmap));
+// using filter 'sixteen'
 
