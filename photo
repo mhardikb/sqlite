@@ -45,3 +45,32 @@ save in amage view
 
 
             }
+            
+            for share ---
+            
+                drawable = (BitmapDrawable) image.getDrawable();
+                bitmap = drawable.getBitmap();
+
+                try
+                {
+                    File file = new File(getApplicationContext().getExternalCacheDir(),File.separator+"a.jpg");
+                    FileOutputStream fout =  new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,fout);
+                    fout.flush();
+                    fout.close();
+                    file.setReadable(true,false);
+
+                    final Intent intent=new Intent(Intent.ACTION_SEND);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Uri photoURI = FileProvider.getUriForFile(getApplicationContext(),BuildConfig.APPLICATION_ID+".provider",file);
+                    intent.putExtra(Intent.EXTRA_STREAM,photoURI);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setType("image/png");
+                    startActivity(Intent.createChooser(intent,"Share iamge"));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+
