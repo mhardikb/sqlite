@@ -1,4 +1,19 @@
  manifest add
+ 
+78	    public static void showImagePickerOptions(Context context, PickerOptionListener listener) { 
+79	        Builder builder = new Builder(context); 
+80	        builder.setTitle(context.getString(R.string.lbl_set_profile_photo)); 
+81	        builder.setItems(new String[]{context.getString(R.string.lbl_take_camera_picture), context.getString(R.string.lbl_choose_from_gallery)}, new -$$Lambda$ImagePickerActivity$pq5EXrO1xNaazLFlI7-fvj08o54(listener)); 
+82	        builder.create().show(); 
+83	    } 
+84	 
+85	    static /* synthetic */ void lambda$showImagePickerOptions$0(PickerOptionListener listener, DialogInterface dialog, int which) { 
+86	        if (which == 0) { 
+87	            listener.onTakeCameraSelected(); 
+88	        } else if (which == 1) { 
+89	            listener.onChooseGallerySelected(); 
+90	        } 
+91	    } 
 
  	<provider
             android:name="androidx.core.content.FileProvider"
