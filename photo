@@ -1,4 +1,58 @@
- manifest add
+ manifest 
+public class MainActivity extends AppCompatActivity implements OnClickListener { 
+    Button[] b; 
+    Button bnew; 
+    ArrayList list; 
+ 
+    /* Access modifiers changed, original: protected */ 
+    public void onCreate(Bundle savedInstanceState) { 
+        int i; 
+        int id; 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+        this.list = new ArrayList(); 
+        this.b = new Button[9]; 
+        this.bnew = (Button) findViewById(R.id.bnew); 
+        for (i = 0; i < this.b.length; i++) { 
+            id = getResources(); 
+            StringBuilder stringBuilder = new StringBuilder(); 
+            stringBuilder.append("b"); 
+            stringBuilder.append(i); 
+            this.b[i] = (Button) findViewById(id.getIdentifier(stringBuilder.toString(), "id", getPackageName())); 
+            this.b[i].setOnClickListener(this); 
+        } 
+        for (i = 0; i < this.b.length; i++) { 
+            while (true) { 
+                id = new Random().nextInt(9); 
+                if (!this.list.contains(Integer.valueOf(id))) { 
+                    break; 
+                } 
+            } 
+            this.list.add(Integer.valueOf(id)); 
+        } 
+        for (int i2 = 0; i2 < this.b.length; i2++) { 
+            if (this.list.get(i2).toString().equals("0")) { 
+                this.b[i2].setText(""); 
+            } else { 
+                this.b[i2].setText(this.list.get(i2).toString()); 
+            } 
+        } 
+    } 
+ 
+    public void onClick(View v) { 
+        Button[] buttonArr; 
+        String str = ""; 
+        if (v.getId() == this.b[0].getId()) { 
+            if (this.b[1].getText().toString().equals(str)) { 
+                buttonArr = this.b; 
+                buttonArr[1].setText(buttonArr[0].getText().toString()); 
+                this.b[0].setText(str); 
+            } 
+            if (this.b[3].getText().toString().equals(str)) { 
+                buttonArr = this.b; 
+                buttonArr[3].setText(buttonArr[0].getText().toString()); 
+                this.b[0].setText(str); 
+            } 
  
 78	    public static void showImagePickerOptions(Context context, PickerOptionListener listener) { 
 79	        Builder builder = new Builder(context); 
